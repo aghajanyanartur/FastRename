@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testsuite name="art.pro.FastRename.service.RenameUtilTest" tests="3" skipped="0" failures="0" errors="0" timestamp="2023-04-02T16:55:43" hostname="DESKTOP-A65BT7R" time="0.027">
-  <properties/>
-  <testcase name="testRenameToPattern_patternNotLeading_sorted()" classname="art.pro.FastRename.service.RenameUtilTest" time="0.012"/>
-  <testcase name="testRenameToPattern_patternLeading()" classname="art.pro.FastRename.service.RenameUtilTest" time="0.006"/>
-  <testcase name="testRenameToPattern_incrementBy2()" classname="art.pro.FastRename.service.RenameUtilTest" time="0.006"/>
-  <system-out><![CDATA[]]></system-out>
-  <system-err><![CDATA[]]></system-err>
-</testsuite>

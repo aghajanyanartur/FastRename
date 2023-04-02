@@ -1,5 +1,5 @@
-FROM eclipse-temurin:18-jdk-alpine
-VOLUME /tmp
-COPY build/libs/*.jar FastRename-1.0.jar
-ENTRYPOINT ["java","-jar","/FastRename-1.0.jar"]
+FROM adoptopenjdk/openjdk18:latest
+WORKDIR /app
+COPY build/libs/*.jar app.jar
+CMD ["java", "-jar", "app.jar"]
 EXPOSE 8080

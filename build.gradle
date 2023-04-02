@@ -6,7 +6,6 @@ plugins {
 
 group = 'art.pro'
 version = '1.0'
-sourceCompatibility = '17'
 
 repositories {
 	mavenCentral()

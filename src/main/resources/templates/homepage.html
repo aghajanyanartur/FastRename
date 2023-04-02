@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Fast Rename - quickly rename all files in a folder</title>
+</head>
+<body>
+<form>
+    <label for="folder-address">Folder Address:</label>
+    <input type="text" id="folder-address" name="folder-address" value=""><br>
+
+    <label for="starting-number">Starting Number:</label>
+    <input type="number" id="starting-number" name="starting-number" value="1"><br>
+
+    <label for="increment-by">Increment By:</label>
+    <input type="number" id="increment-by" name="increment-by" value="1"><br>
+
+    <input type="checkbox" id="decrement" name="decrement">
+    <label for="decrement">Decrement</label><br>
+
+    <label for="additional-name-pattern">Additional Name Pattern:</label>
+    <input type="text" id="additional-name-pattern" name="additional-name-pattern" value="" placeholder="Leading"><br>
+
+    <input type="checkbox" id="name-pattern-trailing" name="name-pattern-trailing">
+    <label for="name-pattern-trailing">Name Pattern Trailing</label><br>
+
+    <input type="submit" value="Generate">
+</form>
+</body>
+</html>

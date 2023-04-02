@@ -2,6 +2,7 @@ plugins {
 	id 'java'
 	id 'org.springframework.boot' version '3.0.5'
 	id 'io.spring.dependency-management' version '1.1.0'
+	id 'com.google.cloud.tools.jib' version '3.1.4'
 }
 
 group = 'art.pro'
@@ -10,6 +11,16 @@ version = '1.0'
 jar {
 	manifest {
 		attributes 'Main-Class': 'art.pro.FastRename.FastRenameApplication'
+	}
+}
+
+jib {
+	to {
+		image = 'gcr.io/FastRename/fast-rename-image'
+		tags = ['latest']
+	}
+	container {
+		mainClass = 'art.pro.FastRename.FastRenameApplication'
 	}
 }
 

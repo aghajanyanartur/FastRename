@@ -5,4 +5,4 @@ COPY gradle /app/gradle
 RUN ./gradlew dependencies
 COPY src /app/src
 RUN ./gradlew build
-ENTRYPOINT ["java", "-jar", "build/libs/FastRename.jar"]
+ENTRYPOINT ["java", "-jar", "build/libs/FastRename-1.0.jar"]

@@ -1,30 +1,44 @@
 package art.pro.FastRename.service;
 
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.Arrays;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.Set;
 
 public final class RenameUtil {
 
     public String test = ""; // FOR TESTING**********
     public String test2 = ""; // FOR TESTING**********
 
-    public void renameToPattern(String directoryPath, String pattern, int startNumber, int incrementBy,
-            int digitsNumber, boolean increment, boolean patternLeading, boolean sorted) {
+        public void renameToPattern(String directoryPath, String pattern, int startNumber, int incrementBy,
+                int digitsNumber, boolean increment, boolean patternLeading, boolean sorted) {
 
-        File[] files = new File(directoryPath).listFiles(File::isFile);
+            Path path = Paths.get(directoryPath);
+            boolean hasReadAndExecutePermission = Files.isReadable(path) && Files.isExecutable(path);
 
-        if(files != null) {
-            test = "The path is--: " + directoryPath + " ---- The folder path is not null -----"; // FOR TESTING**********
-            if(sorted){
-                Arrays.sort(files, Comparator.comparing(File::getName));
+            if (!hasReadAndExecutePermission) {
+                changeToReadAndExecutePermission(directoryPath);
+                test = "Changed permission for directory: " + directoryPath; // FOR TESTING**********
             }
-            renameFiles(files, directoryPath, pattern, startNumber, digitsNumber, incrementBy, increment, patternLeading);
-        } else {
-            test = "The path is--: " + directoryPath + " ---- The folder path was null -----"; // FOR TESTING**********
-        }
 
-    }
+            File[] files = new File(directoryPath).listFiles(File::isFile);
+
+            if(files != null) {
+                test = "The path is--: " + directoryPath + " ---- The folder path is not null -----"; // FOR TESTING**********
+                if(sorted){
+                    Arrays.sort(files, Comparator.comparing(File::getName));
+                }
+                renameFiles(files, directoryPath, pattern, startNumber, digitsNumber, incrementBy, increment, patternLeading);
+            } else {
+                test = "The path is--: " + directoryPath + " ---- The folder path was null -----"; // FOR TESTING**********
+            }
+
+        }
 
     private void renameFiles(File[] files, String directoryPath, String pattern, int startNumber,
             int digitsNumber, int incrementBy, boolean increment, boolean patternLeading) {
@@ -48,5 +62,21 @@ public final class RenameUtil {
             newFileName = String.format("%0" + digitsNumber + "d%s%s", serialNumber, pattern, extension);
         }
         return newFileName;
+    }
+
+    private void changeToReadAndExecutePermission(String directoryPath) {
+        Path path = Paths.get(directoryPath);
+        Set<PosixFilePermission> perms = new HashSet<>();
+        perms.add(PosixFilePermission.OWNER_READ);
+        perms.add(PosixFilePermission.OWNER_EXECUTE);
+        try {
+            Files.setPosixFilePermissions(path, perms);
+        } catch (UnsupportedOperationException e) {
+            // Handle non-POSIX platforms
+            e.printStackTrace();
+        } catch (Exception e) {
+            // Handle other exceptions
+            e.printStackTrace();
+        }
     }
 }

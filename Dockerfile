@@ -1,8 +1,5 @@
-FROM openjdk:18-jdk-slim-buster
-WORKDIR /app
-COPY build.gradle settings.gradle gradlew /app/
-COPY gradle /app/gradle
-# RUN /bin/bash -c 'cd /app && /app/gradlew dependencies'
-COPY src /app/src
-RUN ./gradlew build
-ENTRYPOINT ["java", "-jar", "build/libs/FastRename-1.0.jar"]
+FROM eclipse-temurin:18-jdk-alpine
+VOLUME /tmp
+COPY build/libs/*.jar FastRename-1.0.jar
+ENTRYPOINT ["java","-jar","/FastRename-1.0.jar"]
+EXPOSE 8080

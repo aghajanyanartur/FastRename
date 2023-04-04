@@ -1,4 +1,4 @@
-FROM adoptopenjdk/openjdk18:latest
+FROM openjdk:18-jdk-slim-buster
 WORKDIR /app
 COPY build.gradle settings.gradle gradlew /app/
 COPY gradle /app/gradle

@@ -6,17 +6,24 @@ import java.util.Comparator;
 
 public final class RenameUtil {
 
+    public String test = ""; // FOR TESTING**********
+    public String test2 = ""; // FOR TESTING**********
+
     public void renameToPattern(String directoryPath, String pattern, int startNumber, int incrementBy,
             int digitsNumber, boolean increment, boolean patternLeading, boolean sorted) {
 
         File[] files = new File(directoryPath).listFiles(File::isFile);
 
         if(files != null) {
+            test = "The path is--: " + directoryPath + " ---- The folder path is not null -----"; // FOR TESTING**********
             if(sorted){
                 Arrays.sort(files, Comparator.comparing(File::getName));
             }
             renameFiles(files, directoryPath, pattern, startNumber, digitsNumber, incrementBy, increment, patternLeading);
+        } else {
+            test = "The path is--: " + directoryPath + " ---- The folder path was null -----"; // FOR TESTING**********
         }
+
     }
 
     private void renameFiles(File[] files, String directoryPath, String pattern, int startNumber,
@@ -28,6 +35,7 @@ public final class RenameUtil {
             String newFileName = generateNewName(patternLeading, digitsNumber, pattern, serialNumber, extension);
             File newFile = new File(directoryPath + "\\" + newFileName);
             file.renameTo(newFile);
+            test2 = "   @@@ Absolute path: " + file.getAbsolutePath() + "   Canonical path: " + file.getAbsolutePath();
             serialNumber += increment ? incrementBy : -incrementBy;
         }
     }

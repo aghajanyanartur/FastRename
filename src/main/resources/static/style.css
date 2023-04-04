@@ -1,10 +1,11 @@
 /* Set default font and background color */
 body {
   font-family: Arial, sans-serif;
-  background-image: linear-gradient(to bottom right, #e66465, #9198e5);
+  background-image: linear-gradient(to bottom, #CCC, #8EC5FC, #6284FF, #FC00FF);
   color: #333;
   margin: 0 auto;
-  padding: 0;
+  padding-bottom: 2.5%;
+  font-weight: bold;
 }
 
 #description-text {
@@ -16,6 +17,7 @@ body {
     background-color: #f0f0f0;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    font-weight: normal;
 }
 
 /* Style the page title */
@@ -30,7 +32,7 @@ form {
   width: 60%;
   margin: 20px auto;
   padding: 20px;
-  background-color: #fff;
+  background-color: rgba(255,255,255, 0.7);
   border-radius: 10px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }

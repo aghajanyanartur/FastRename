@@ -2,6 +2,7 @@ package art.pro.FastRename.controllers;
 
 import art.pro.FastRename.service.RenameUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -17,18 +18,22 @@ public class MainController {
     }
 
     @PostMapping("/rename")
-    public String rename(
-            @RequestParam("directory-path") String directoryPath,
-            @RequestParam("additional-name-pattern") String pattern,
-            @RequestParam("starting-number") int startNumber,
-            @RequestParam("increment-by") int incrementBy,
-            @RequestParam("digits-number") int digitsNumber,
-            @RequestParam(name = "decrement", defaultValue = "false") boolean decrement,
-            @RequestParam(name = "name-pattern-trailing", defaultValue = "false") boolean patternTrailing,
-            @RequestParam(name = "sorted", defaultValue = "false") boolean sorted) {
+    public String rename(Model model,
+                         @RequestParam("directory-path") String directoryPath,
+                         @RequestParam("additional-name-pattern") String pattern,
+                         @RequestParam("starting-number") int startNumber,
+                         @RequestParam("increment-by") int incrementBy,
+                         @RequestParam("digits-number") int digitsNumber,
+                         @RequestParam(name = "decrement", defaultValue = "false") boolean decrement,
+                         @RequestParam(name = "name-pattern-trailing", defaultValue = "false") boolean patternTrailing,
+                         @RequestParam(name = "sorted", defaultValue = "false") boolean sorted) {
 
         renameUtil.renameToPattern(directoryPath, pattern, startNumber, incrementBy,
                 digitsNumber, !decrement, !patternTrailing, sorted);
-        return "homepage";
+
+        model.addAttribute("testdata1", renameUtil.test);
+        model.addAttribute("testdata2", renameUtil.test2);
+
+        return "test";
     }
 }

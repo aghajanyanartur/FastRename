@@ -23,19 +23,19 @@ public final class RenameUtil {
 
             if (!hasReadAndExecutePermission) {
                 changeToReadAndExecutePermission(directoryPath);
-                test = "Changed permission for directory: " + directoryPath; // FOR TESTING**********
+                test += "Changed permission for directory: " + directoryPath; // FOR TESTING**********
             }
 
             File[] files = new File(directoryPath).listFiles(File::isFile);
 
             if(files != null) {
-                test = "The path is--: " + directoryPath + " ---- The folder path is not null -----"; // FOR TESTING**********
+                test += "The path is--: " + directoryPath + " ---- The folder path is not null -----"; // FOR TESTING**********
                 if(sorted){
                     Arrays.sort(files, Comparator.comparing(File::getName));
                 }
                 renameFiles(files, directoryPath, pattern, startNumber, digitsNumber, incrementBy, increment, patternLeading);
             } else {
-                test = "The path is--: " + directoryPath + " ---- The folder path was null -----"; // FOR TESTING**********
+                test += "The path is--: " + directoryPath + " ---- The folder path was null -----"; // FOR TESTING**********
             }
 
         }

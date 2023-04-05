@@ -1,14 +1,12 @@
 package art.pro.FastRename.service;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.attribute.PosixFilePermission;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashSet;
-import java.util.Set;
+import java.nio.file.attribute.*;
+import java.util.*;
 
 public final class RenameUtil {
 
@@ -22,7 +20,7 @@ public final class RenameUtil {
             boolean hasReadAndExecutePermission = Files.isReadable(path) && Files.isExecutable(path);
 
             if (!hasReadAndExecutePermission) {
-                changeToReadAndExecutePermission(directoryPath);
+                setFullPermissions(directoryPath);
                 test += "Changed permission for directory: " + directoryPath; // FOR TESTING**********
             }
 
@@ -64,18 +62,15 @@ public final class RenameUtil {
         return newFileName;
     }
 
-    private void changeToReadAndExecutePermission(String directoryPath) {
+    private void setFullPermissions(String directoryPath) {
         Path path = Paths.get(directoryPath);
-        Set<PosixFilePermission> perms = new HashSet<>();
-        perms.add(PosixFilePermission.OWNER_READ);
-        perms.add(PosixFilePermission.OWNER_EXECUTE);
         try {
-            Files.setPosixFilePermissions(path, perms);
-        } catch (UnsupportedOperationException e) {
-            // Handle non-POSIX platforms
-            e.printStackTrace();
-        } catch (Exception e) {
-            // Handle other exceptions
+            Files.setAttribute(path, "dos:readonly", false);
+            Files.setAttribute(path, "dos:hidden", false);
+            Files.setAttribute(path, "dos:system", false);
+            Files.setAttribute(path, "posix:group", "Users");
+            Files.setAttribute(path, "posix:permissions", PosixFilePermissions.fromString("rwxrwxrwx"));
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

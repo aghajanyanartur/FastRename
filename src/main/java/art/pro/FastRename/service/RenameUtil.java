@@ -2,6 +2,7 @@ package art.pro.FastRename.service;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -68,10 +69,27 @@ public final class RenameUtil {
             Files.setAttribute(path, "dos:readonly", false);
             Files.setAttribute(path, "dos:hidden", false);
             Files.setAttribute(path, "dos:system", false);
-            Files.setAttribute(path, "posix:group", "Users");
-            Files.setAttribute(path, "posix:permissions", PosixFilePermissions.fromString("rwxrwxrwx"));
+            Files.setAttribute(path, "acl:acl", getWindowsFullControlAcl());
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private AclFileAttributeView getWindowsFullControlAcl() throws IOException {
+        AclEntry.Builder builder = AclEntry.newBuilder();
+        builder.setType(AclEntryType.ALLOW);
+        UserPrincipalLookupService lookupService = FileSystems.getDefault().getUserPrincipalLookupService();
+        UserPrincipal everyone = lookupService.lookupPrincipalByName("Everyone");
+        builder.setPrincipal(everyone);
+        builder.setPermissions(AclEntryPermission.READ_DATA, AclEntryPermission.WRITE_DATA, AclEntryPermission.APPEND_DATA,
+                AclEntryPermission.READ_NAMED_ATTRS, AclEntryPermission.WRITE_NAMED_ATTRS,
+                AclEntryPermission.READ_ATTRIBUTES, AclEntryPermission.WRITE_ATTRIBUTES,
+                AclEntryPermission.DELETE, AclEntryPermission.READ_ACL, AclEntryPermission.WRITE_ACL,
+                AclEntryPermission.WRITE_OWNER, AclEntryPermission.SYNCHRONIZE);
+        AclEntry aclEntry = builder.build();
+        AclEntry[] aclEntries = { aclEntry };
+        AclFileAttributeView aclView = Files.getFileAttributeView(Paths.get(""), AclFileAttributeView.class);
+        aclView.setAcl(Arrays.asList(aclEntries));
+        return aclView;
     }
 }

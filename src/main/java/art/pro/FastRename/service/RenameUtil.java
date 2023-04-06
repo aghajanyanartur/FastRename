@@ -25,6 +25,7 @@ public final class RenameUtil {
             file.setExecutable(true);
             File newFile = new File("C:\\Users\\Lenovo\\Desktop\\testfolderforrenameapp" + "\\" + "newnew.png");
             file.renameTo(newFile);
+            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
 //            ***************************
 
             File path = new File(directoryPath);

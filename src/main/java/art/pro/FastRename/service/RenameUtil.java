@@ -23,7 +23,7 @@ public final class RenameUtil {
             file.setWritable(true);
             file.setReadable(true);
             file.setExecutable(true);
-            File newFile = new File("C:\\Users\\Lenovo\\Desktop\\testfolderforrenameapp" + "\\" + "newnew.png");
+            File newFile = new File("C:/Users/Lenovo/Desktop/testfolderforrenameapp/newnew.txt");
             file.renameTo(newFile);
             test += "THE FILE IS >>>> " + file.getName() + "::::   ";
 //            ***************************

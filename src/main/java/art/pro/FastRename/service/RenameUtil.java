@@ -20,7 +20,10 @@ public final class RenameUtil {
 //            ***************************
             File file = new File(directoryPath);
             test += "THE FILE IS >>>> " + file.getName() + "::::   ";
-            File newFile = new File(directoryPath + "\\" + "new.png");
+            file.setWritable(true);
+            file.setReadable(true);
+            file.setExecutable(true);
+            File newFile = new File("C:\\Users\\Lenovo\\Desktop\\testfolderforrenameapp" + "\\" + "newnew.png");
             file.renameTo(newFile);
 //            ***************************
 
@@ -36,7 +39,7 @@ public final class RenameUtil {
                 if(sorted){
                     Arrays.sort(files, Comparator.comparing(File::getName));
                 }
-                renameFiles(files, directoryPath, pattern, startNumber, digitsNumber, incrementBy, increment, patternLeading);
+//                renameFiles(files, directoryPath, pattern, startNumber, digitsNumber, incrementBy, increment, patternLeading);
             } else {
                 test += "The path is--: " + directoryPath + " ---- The folder path was NULL -----"; // FOR TESTING**********
             }

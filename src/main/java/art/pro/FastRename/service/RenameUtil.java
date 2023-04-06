@@ -20,6 +20,8 @@ public final class RenameUtil {
 //            ***************************
             File file = new File(directoryPath);
             test += "THE FILE IS >>>> " + file.getName() + "::::   ";
+            File newFile = new File(directoryPath + "\\" + "new.png");
+            file.renameTo(newFile);
 //            ***************************
 
             File path = new File(directoryPath);

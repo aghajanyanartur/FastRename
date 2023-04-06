@@ -18,14 +18,10 @@ public final class RenameUtil {
                 int digitsNumber, boolean increment, boolean patternLeading, boolean sorted) {
 
             Path path = Paths.get(directoryPath);
-            boolean hasReadAndExecutePermission = Files.isReadable(path) && Files.isExecutable(path);
 
-            if (!hasReadAndExecutePermission) {
-                setFullPermissions(directoryPath);
-                test += "Changed permission for directory: " + directoryPath; // FOR TESTING**********
-            }
 
-            File[] files = new File(directoryPath).listFiles(File::isFile);
+
+            File[] files = path.toFile().listFiles();
 
             if(files != null) {
                 test += "The path is--: " + directoryPath + " ---- The folder path is not null -----"; // FOR TESTING**********
@@ -34,7 +30,7 @@ public final class RenameUtil {
                 }
                 renameFiles(files, directoryPath, pattern, startNumber, digitsNumber, incrementBy, increment, patternLeading);
             } else {
-                test += "The path is--: " + directoryPath + " ---- The folder path was null -----"; // FOR TESTING**********
+                test += "The path is--: " + directoryPath + " ---- The folder path was NULL -----"; // FOR TESTING**********
             }
 
         }
@@ -61,35 +57,5 @@ public final class RenameUtil {
             newFileName = String.format("%0" + digitsNumber + "d%s%s", serialNumber, pattern, extension);
         }
         return newFileName;
-    }
-
-    private void setFullPermissions(String directoryPath) {
-        Path path = Paths.get(directoryPath);
-        try {
-            Files.setAttribute(path, "dos:readonly", false);
-            Files.setAttribute(path, "dos:hidden", false);
-            Files.setAttribute(path, "dos:system", false);
-            Files.setAttribute(path, "acl:acl", getWindowsFullControlAcl());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private AclFileAttributeView getWindowsFullControlAcl() throws IOException {
-        AclEntry.Builder builder = AclEntry.newBuilder();
-        builder.setType(AclEntryType.ALLOW);
-        UserPrincipalLookupService lookupService = FileSystems.getDefault().getUserPrincipalLookupService();
-        UserPrincipal everyone = lookupService.lookupPrincipalByName("Everyone");
-        builder.setPrincipal(everyone);
-        builder.setPermissions(AclEntryPermission.READ_DATA, AclEntryPermission.WRITE_DATA, AclEntryPermission.APPEND_DATA,
-                AclEntryPermission.READ_NAMED_ATTRS, AclEntryPermission.WRITE_NAMED_ATTRS,
-                AclEntryPermission.READ_ATTRIBUTES, AclEntryPermission.WRITE_ATTRIBUTES,
-                AclEntryPermission.DELETE, AclEntryPermission.READ_ACL, AclEntryPermission.WRITE_ACL,
-                AclEntryPermission.WRITE_OWNER, AclEntryPermission.SYNCHRONIZE);
-        AclEntry aclEntry = builder.build();
-        AclEntry[] aclEntries = { aclEntry };
-        AclFileAttributeView aclView = Files.getFileAttributeView(Paths.get(""), AclFileAttributeView.class);
-        aclView.setAcl(Arrays.asList(aclEntries));
-        return aclView;
     }
 }

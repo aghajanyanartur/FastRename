@@ -17,11 +17,12 @@ public final class RenameUtil {
         public void renameToPattern(String directoryPath, String pattern, int startNumber, int incrementBy,
                 int digitsNumber, boolean increment, boolean patternLeading, boolean sorted) {
 
-            Path path = Paths.get(directoryPath);
+            File path = new File(directoryPath);
+            path.setReadable(true);
+            path.setExecutable(true);
+            path.setWritable(true);
 
-
-
-            File[] files = path.toFile().listFiles();
+            File[] files = path.listFiles();
 
             if(files != null) {
                 test += "The path is--: " + directoryPath + " ---- The folder path is not null -----"; // FOR TESTING**********

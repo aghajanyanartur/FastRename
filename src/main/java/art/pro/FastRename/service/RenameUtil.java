@@ -17,6 +17,11 @@ public final class RenameUtil {
         public void renameToPattern(String directoryPath, String pattern, int startNumber, int incrementBy,
                 int digitsNumber, boolean increment, boolean patternLeading, boolean sorted) {
 
+//            ***************************
+            File file = new File(directoryPath);
+            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
+//            ***************************
+
             File path = new File(directoryPath);
             path.setReadable(true);
             path.setExecutable(true);

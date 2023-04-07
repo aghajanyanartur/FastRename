@@ -31,9 +31,6 @@ public class MainController {
         renameUtil.renameToPattern(directoryPath, pattern, startNumber, incrementBy,
                 digitsNumber, !decrement, !patternTrailing, sorted);
 
-        model.addAttribute("testdata1", renameUtil.test);
-        model.addAttribute("testdata2", renameUtil.test2);
-
-        return "test";
+        return "homepage";
     }
 }

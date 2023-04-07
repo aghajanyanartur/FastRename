@@ -2,11 +2,7 @@ package art.pro.FastRename.service;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.attribute.*;
+import java.nio.file.*;
 import java.util.*;
 
 public final class RenameUtil {
@@ -19,7 +15,7 @@ public final class RenameUtil {
 
 //            *************************** try with move
             Path filePath = Paths.get(directoryPath);
-            Path newPath = Paths.get("C:/Users/Lenovo/Desktop/testfolderforrenameapp/newnew.txt");
+            Path newPath = Paths.get("C:\\Users\\Lenovo\\Desktop\\testfolderforrenameapp\\newPath.txt");
             test += "BEFORE:: filePath = " + filePath + ",,,  newPath = " + newPath + "||||";
             try{
                 Files.move(filePath, newPath);
@@ -27,32 +23,48 @@ public final class RenameUtil {
                 e.printStackTrace();
             }
             test += "AFTER:: filePath = " + filePath + ",,,  newPath = " + newPath + "||||";
-//            https://mkyong.com/java/how-to-rename-file-in-java/
-//            File file = new File(directoryPath);
-//            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
-//            file.setWritable(true);
-//            file.setReadable(true);
-//            file.setExecutable(true);
-//            File newFile = new File("C:/Users/Lenovo/Desktop/testfolderforrenameapp/newnew.txt");
-//            file.renameTo(newFile);
-//            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
+
+//            *************************** Try with permissions
+            File file = new File(directoryPath);
+            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
+            file.setReadable(true, false);
+            file.setWritable(true, false);
+            file.setExecutable(true, false);
+            File newFile = new File("C:\\Users\\Lenovo\\Desktop\\testfolderforrenameapp\\newFile.txt");
+            file.renameTo(newFile);
+            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
 //            ***************************
 
-//            ***************************
-//            File file = new File(directoryPath);
-//            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
-//            file.setWritable(true);
-//            file.setReadable(true);
-//            file.setExecutable(true);
-//            File newFile = new File("C:/Users/Lenovo/Desktop/testfolderforrenameapp/newnew.txt");
-//            file.renameTo(newFile);
-//            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
-//            ***************************
+//            ********************************
+//            TRY TO MAKE NEW FILE AND DIRECTORY
+
+            // ************ directory **********
+            File newDirectory1 = new File("C:\\Users\\Lenovo\\Desktop\\newDirectory1.txt");
+            newDirectory1.mkdir();
+            File newDirectory2 = new File("C:/User/Lenovo/Desktop/newDirectory2");
+            newDirectory2.mkdir();
+
+            test += "NEW DIRECTORIES = " + newDirectory1 + "  --and--  " + newDirectory2;
+
+            // ************ file ***************
+            File newlyCreatedFile1 = new File("C:\\Users\\Lenovo\\Desktop\\testfolderforrenameapp\\newlyCreatedFile1.txt");
+            try {
+                newlyCreatedFile1.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            File newlyCreatedFile2 = new File("C:/User/Lenovo/Desktop/testfolderforrenameapp/newlyCreatedFile2.txt");
+            try {
+                newlyCreatedFile2.createNewFile();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
+            test += "NEW FILES = " + newlyCreatedFile1 + "  --and--  " + newlyCreatedFile2;
+//            TRY TO MAKE NEW FILE AND DIRECTORY
+//            *********************************
 
             File path = new File(directoryPath);
-            path.setReadable(true);
-            path.setExecutable(true);
-            path.setWritable(true);
 
             File[] files = path.listFiles();
 

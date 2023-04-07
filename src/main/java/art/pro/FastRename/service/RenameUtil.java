@@ -51,13 +51,13 @@ public final class RenameUtil {
             try {
                 newlyCreatedFile1.createNewFile();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                test += "EXCEPTION 1";
             }
             File newlyCreatedFile2 = new File("C:/User/Lenovo/Desktop/testfolderforrenameapp/newlyCreatedFile2.txt");
             try {
                 newlyCreatedFile2.createNewFile();
             } catch (IOException e) {
-                throw new RuntimeException(e);
+                test += " EXCEPTION 1";
             }
 
             test += "NEW FILES = " + newlyCreatedFile1 + "  --and--  " + newlyCreatedFile2;

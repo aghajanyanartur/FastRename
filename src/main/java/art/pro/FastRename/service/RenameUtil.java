@@ -17,15 +17,36 @@ public final class RenameUtil {
         public void renameToPattern(String directoryPath, String pattern, int startNumber, int incrementBy,
                 int digitsNumber, boolean increment, boolean patternLeading, boolean sorted) {
 
+//            *************************** try with move
+            Path filePath = Paths.get(directoryPath);
+            Path newPath = Paths.get("C:/Users/Lenovo/Desktop/testfolderforrenameapp/newnew.txt");
+            test += "BEFORE:: filePath = " + filePath + ",,,  newPath = " + newPath + "||||";
+            try{
+                Files.move(filePath, newPath);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            test += "AFTER:: filePath = " + filePath + ",,,  newPath = " + newPath + "||||";
+//            https://mkyong.com/java/how-to-rename-file-in-java/
+//            File file = new File(directoryPath);
+//            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
+//            file.setWritable(true);
+//            file.setReadable(true);
+//            file.setExecutable(true);
+//            File newFile = new File("C:/Users/Lenovo/Desktop/testfolderforrenameapp/newnew.txt");
+//            file.renameTo(newFile);
+//            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
 //            ***************************
-            File file = new File(directoryPath);
-            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
-            file.setWritable(true);
-            file.setReadable(true);
-            file.setExecutable(true);
-            File newFile = new File("C:/Users/Lenovo/Desktop/testfolderforrenameapp/newnew.txt");
-            file.renameTo(newFile);
-            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
+
+//            ***************************
+//            File file = new File(directoryPath);
+//            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
+//            file.setWritable(true);
+//            file.setReadable(true);
+//            file.setExecutable(true);
+//            File newFile = new File("C:/Users/Lenovo/Desktop/testfolderforrenameapp/newnew.txt");
+//            file.renameTo(newFile);
+//            test += "THE FILE IS >>>> " + file.getName() + "::::   ";
 //            ***************************
 
             File path = new File(directoryPath);

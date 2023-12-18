@@ -4,7 +4,7 @@
 FastRename is a powerful and user-friendly application designed to streamline the process of renaming files in bulk. With its intuitive interface and flexible renaming rules, FastRename makes organizing your digital files easier and faster.
 
 ## Screenshot
-![Screenshot 2023-12-15 154221](https://drive.google.com/file/d/1B3yskTdsz44jJVDkfkhPZaFXXnNXxMBQ/view?usp=drive_link)
+![Screenshot 2023-12-15 154221](https://drive.google.com/uc?export=download&id=1B3yskTdsz44jJVDkfkhPZaFXXnNXxMBQ)
 
 ## Features
 - **Bulk Renaming**: Effortlessly rename multiple files and folders in one go.
